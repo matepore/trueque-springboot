@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: clubdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: rootpassword
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
